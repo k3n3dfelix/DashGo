@@ -93,7 +93,7 @@ export default function UserList() {
                 <Tbody>
                  {data.map((user: User) => {
                   return (
-                    <Tr >
+                    <Tr key={user.id}>
                       <Td px={["4", "4", "6"]}>
                         <Checkbox colorScheme="pink"></Checkbox>
                       </Td>
@@ -122,7 +122,11 @@ export default function UserList() {
                  })}
                 </Tbody>
               </Table>
-              <Pagination />
+              <Pagination 
+                totalCountOfRegisters={200}
+                currentPage={5}
+                onPageChange={() => {}}
+              />
             </>
           )}
         </Box>
