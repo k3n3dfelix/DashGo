@@ -43,14 +43,18 @@ export default function UserList() {
     lg: true,
   });
 
-  async function handlePrefetchUser(userId: number){
-    await queryClient.prefetchQuery(["users", userId], async () => {
-      const response = await api.get(`users/${userId}`)
+  async function handlePrefetchUser(userId: string) {
+    await queryClient.prefetchQuery(
+      ["users", userId],
+      async () => {
+        const response = await api.get(`users/${userId}`);
 
-      return response.data;
-    },{
-      staleTime: 1000 * 60* 10 //10 minutes
-    })
+        return response.data;
+      },
+      {
+        staleTime: 1000 * 60 * 10, //10 minutes
+      }
+    );
   }
 
   return (
@@ -112,7 +116,10 @@ export default function UserList() {
                         </Td>
                         <Td>
                           <Box>
-                            <Link color="purple.400" onMouseEnter={() => handlePrefetchUser(user.id)}>
+                            <Link
+                              color="purple.400"
+                              onMouseEnter={() => handlePrefetchUser(user.id)}
+                            >
                               <Text fontWeight="bold">{user.name}</Text>
                             </Link>
                             <Text fontSize="small" color="gray.300">
